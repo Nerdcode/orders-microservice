@@ -21,7 +21,7 @@ public class Account {
 
     private List<Address> addresses;
     //private List<OrderInventory> cart;  // TODO
-    private List<Order> currentOrders;
+    private Order currentOrders;
     private List<Order> OrderHistory;
 
     public String getId() {
@@ -72,11 +72,11 @@ public class Account {
         this.addresses = addresses;
     }
 
-    public List<Order> getCurrentOrders() {
+    public Order getCurrentOrders() {
         return currentOrders;
     }
 
-    public void setCurrentOrders(List<Order> currentOrders) {
+    public void setCurrentOrders(Order currentOrders) {
         this.currentOrders = currentOrders;
     }
 

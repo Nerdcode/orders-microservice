@@ -1,9 +1,7 @@
 package com.vedantu.ordersmicroservice.Services;
 
-import com.vedantu.ordersmicroservice.Entities.Inventory;
 import com.vedantu.ordersmicroservice.Entities.OrderInventory;
 import com.vedantu.ordersmicroservice.Entities.StockInventory;
-import com.vedantu.ordersmicroservice.Repositories.InventoryRepository;
 import com.vedantu.ordersmicroservice.Repositories.StockInventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +20,7 @@ public class InventoryService {
     private StockInventoryRepository stockInventoryRepository;
 
     /**
-     * Method to update stock quantity after order gets placed
+     * Method to update stock & sold quantity after order gets placed
      *
      * @param orderedInventories Placed order items
      */
@@ -33,8 +31,14 @@ public class InventoryService {
                                                                     .orElse(null);
 
             if(stockInventory != null) {
-                int updatedInStockQuantity = stockInventory.getInStock() - orderInventory.getQuantity();
-                stockInventory.setInStock(updatedInStockQuantity);
+                //update in stock quantity
+                int updatedInStockQuantity = stockInventory.getInStockQuantity() - orderInventory.getQuantity();
+                stockInventory.setInStockQuantity(updatedInStockQuantity);
+
+                //update sold quantity
+                int updatedSoldQuantity = stockInventory.getSoldQuantity() + orderInventory.getQuantity();
+                stockInventory.setSoldQuantity(updatedSoldQuantity);
+
                 stockInventoryRepository.save(stockInventory);
             }
         }
@@ -63,5 +67,10 @@ public class InventoryService {
     public List<StockInventory> getAllStockInventory() {
 
         return stockInventoryRepository.findAll();
+    }
+
+    public StockInventory getStockInventory(String inventoryId) {
+
+        return stockInventoryRepository.findById(inventoryId).orElse(null);
     }
 }

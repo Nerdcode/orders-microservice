@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ *
+ * @author durgaprasad.kusuma
+ */
 @RestController
-@RequestMapping("/Inventory")
+@RequestMapping("/inventory")
 public class InventoryController {
 
     @Autowired
@@ -25,9 +29,18 @@ public class InventoryController {
     @PostMapping("/add")
     private ResponseEntity<?> addNewInventory(@RequestBody List<StockInventory> stockInventory) {
 
-        List<StockInventory> savedInventories = inventoryService.addInventory(stockInventory);
+        //TODO Put a check if fields like mrp, itemname are null before saving
+        //TODO check if stockinventory is a empty object
 
-        return new ResponseEntity<>(savedInventories, HttpStatus.OK);
+        //save list of stock inventory
+        if(stockInventory.size() > 0) {
+            List<StockInventory> savedInventories = inventoryService.addInventory(stockInventory);
+            return new ResponseEntity<>(savedInventories, HttpStatus.OK);
+        } else {
+            String msg = "No inventories found to add";
+            return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
+        }
+
     }
 
 
@@ -46,6 +59,18 @@ public class InventoryController {
         return new ResponseEntity<>(allStockInventory, HttpStatus.OK);
     }
 
+    @GetMapping("/show")
+    private ResponseEntity<?> showStockInventoryById(@RequestParam String inventoryId) {
+
+        StockInventory stockInventory = inventoryService.getStockInventory(inventoryId);
+        if(stockInventory != null) {
+            return new ResponseEntity<>(stockInventory, HttpStatus.OK);
+        } else {
+            String msg = "Inventory not found, Try with valid inventory ID";
+            return new ResponseEntity<>(msg , HttpStatus.BAD_REQUEST);
+        }
+    }
+
     /**
      * API to remove/delete from stocked inventory
      * @param stockInventory
@@ -55,7 +80,7 @@ public class InventoryController {
     private ResponseEntity<?> removeInventory(@RequestBody List<StockInventory> stockInventory) {
 
         //TODO : need to be implemeneted
-        String msg = "Not Implemented";
+        String msg = "Not Implemented, See you soon";
         return new ResponseEntity<>(msg , HttpStatus.BAD_REQUEST);
     }
 }

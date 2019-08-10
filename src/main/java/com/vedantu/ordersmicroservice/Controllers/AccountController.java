@@ -1,11 +1,7 @@
 package com.vedantu.ordersmicroservice.Controllers;
 
 import com.vedantu.ordersmicroservice.Entities.Account;
-import com.vedantu.ordersmicroservice.Entities.Order;
-import com.vedantu.ordersmicroservice.Entities.OrderInventory;
 import com.vedantu.ordersmicroservice.Services.AccountService;
-import com.vedantu.ordersmicroservice.Services.InventoryService;
-import com.vedantu.ordersmicroservice.Services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,9 +31,13 @@ public class AccountController {
     @PostMapping("/create")
     private ResponseEntity<?> createAccount(@RequestBody Account newAccount) {
 
-        Account savedAccount = accountService.createAccount(newAccount);
-        System.out.print(savedAccount);
-        return new ResponseEntity<>(savedAccount, HttpStatus.OK);
+        if(newAccount.getUsername() != null)  {//&& newAccount.getAccountEmail()!=null && newAccount.getAccountPhone() != null)
+            Account savedAccount = accountService.createAccount(newAccount);
+            return new ResponseEntity<>(savedAccount, HttpStatus.OK);
+        } else {
+            String msg = "Username must not be null";
+            return new ResponseEntity<>(msg , HttpStatus.BAD_REQUEST);
+        }
     }
 
     /**
@@ -62,7 +62,7 @@ public class AccountController {
     @DeleteMapping("/delete/{accountId}")
     private  ResponseEntity<?> deleteAccount(@PathVariable String accountId)  {
         //TODO : need to be implemeneted
-        String msg = "Not Implemented";
+        String msg = "Not Implemented, Oops you can't delete";
         return new ResponseEntity<>(msg , HttpStatus.BAD_REQUEST);
     }
 
@@ -70,7 +70,7 @@ public class AccountController {
     private ResponseEntity<?> updateAccount(@RequestBody Account newAccount) {
 
         //TODO : need to be implemeneted
-        String msg = "Not Implemented";
+        String msg = "Not Implemented, You can't update";
         return new ResponseEntity<>(msg , HttpStatus.BAD_REQUEST);
     }
 }

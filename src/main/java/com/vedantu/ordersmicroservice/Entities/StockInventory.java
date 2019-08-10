@@ -15,7 +15,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document
 public class StockInventory extends Inventory {
 
-    private int inStock;
+    @Field("in_stock_quantity")
+    private int inStockQuantity;
 
     @Field("sold_quantity")
     private int soldQuantity;

@@ -4,7 +4,6 @@ import com.vedantu.ordersmicroservice.Entities.Account;
 import com.vedantu.ordersmicroservice.Entities.Order;
 import com.vedantu.ordersmicroservice.Entities.OrderInventory;
 import com.vedantu.ordersmicroservice.Entities.StockInventory;
-import com.vedantu.ordersmicroservice.Repositories.InventoryRepository;
 import com.vedantu.ordersmicroservice.Repositories.StockInventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +18,6 @@ import java.util.stream.Collectors;
  */
 @Service
 public class OrderService {
-
-    @Autowired
-    private InventoryRepository inventoryRepository;
 
     @Autowired
     private AccountService accountService;
@@ -57,7 +53,7 @@ public class OrderService {
 
         StockInventory stockInventory = stockInventoryRepo.findById(item.getInventoryId()).orElse(null);
         if(stockInventory  != null) {
-            if(stockInventory.getInStock() - item.getQuantity() >= 0) {
+            if(stockInventory.getInStockQuantity() - item.getQuantity() >= 0) {
                 return true;
             }
         } else {

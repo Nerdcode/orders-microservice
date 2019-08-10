@@ -28,7 +28,7 @@ public class Address {
     @Field("address_line1")
     private String addLine1; //Flat/ House / Floor / Building
 
-    @Field("address_line1")
+    @Field("address_line2")
     private String addLine2; // street address
 
     private String landmark;

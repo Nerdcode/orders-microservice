@@ -23,7 +23,7 @@ public class Order {
 
     @Id
     @Field("order_id")
-    private String order_id;
+    private String orderId;
 
     private List<OrderInventory> items;
 

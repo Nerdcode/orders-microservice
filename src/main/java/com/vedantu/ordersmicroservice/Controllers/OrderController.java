@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,9 +63,15 @@ public class OrderController {
 
             //Order Placed
             newOrder.setItems(availableItemsInOrder);
+            newOrder.setOrderDate(LocalDateTime.now());
 
-           // if(account.getCurrentOrders().)
-            account.getCurrentOrders().add(newOrder);
+            if(!(account.getCurrentOrders() == null)) {
+                account.getCurrentOrders().add(newOrder);
+            } else {
+                List<Order> orders = new ArrayList<>();
+                orders.add(newOrder);
+                account.setCurrentOrders(orders);
+            }
             accountWithNewOrder = accountService.updateAccount(account);
 
             //update stock
@@ -90,11 +98,11 @@ public class OrderController {
 
         List<Order> currentOrders = orderService.getcurrentOrder(accountId);
 
-        if(currentOrders.size() > 0) {
+        if(currentOrders != null && currentOrders.size() > 0) {
             return new ResponseEntity<>(currentOrders, HttpStatus.OK);
         } else {
             //if user is not found with id
-            String msg = "User not found with this ID / No current Orders for this Account";
+            String msg = "No current Orders for this Account / User not found with this ID";
             return new ResponseEntity<>(msg , HttpStatus.OK);
         }
     }

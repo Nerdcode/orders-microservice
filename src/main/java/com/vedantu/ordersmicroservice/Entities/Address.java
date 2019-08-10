@@ -19,7 +19,10 @@ import java.util.Objects;
 public class Address {
 
     @Id
-    private String id;
+    @Field("address_id")
+    private String addressId;
+
+    private String name; //name associated with address
     private String phone;
 
     @Field("address_line1")

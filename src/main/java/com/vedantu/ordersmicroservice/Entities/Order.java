@@ -22,7 +22,8 @@ import java.util.Objects;
 public class Order {
 
     @Id
-    private String id;
+    @Field("order_id")
+    private String order_id;
 
     private List<OrderInventory> items;
 

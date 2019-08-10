@@ -19,7 +19,8 @@ import java.util.Objects;
 public class Inventory {
 
     @Id
-    private String id;
+    @Field("inventory_id")
+    private String inventoryId;
 
     @Field("item_name")
     private String itemName;

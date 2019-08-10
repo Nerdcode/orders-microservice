@@ -20,7 +20,8 @@ import java.util.Objects;
 public class Account {
 
     @Id
-    private String id;
+    @Field("account_id")
+    private String accountId;
 
     private String username;
 

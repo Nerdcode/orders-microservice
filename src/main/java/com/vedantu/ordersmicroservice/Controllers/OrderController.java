@@ -78,6 +78,7 @@ public class OrderController {
             inventoryService.updateInventory(availableItemsInOrder);
 
             //return only items which are placed (which are in stock and order created)
+            //TODO can also send items which are not Ordered bcz of out of stock
             return new ResponseEntity<>(accountWithNewOrder.getCurrentOrders(), HttpStatus.OK);
         } else {
             //if user is not found with id

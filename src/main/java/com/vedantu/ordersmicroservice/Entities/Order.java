@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,11 +26,16 @@ public class Order {
 
     private List<OrderInventory> items;
 
+    @Field("order_date")
     private LocalDateTime orderDate;
 
+    @Field("is_delivered")
     private boolean isDelivered; // true - orderhistory, false - current order
+
+    @Field("delivered_date")
     private LocalDateTime deliveredDate;
 
+    @Field("shipping_address")
     private Address shippingAddress;
 
     //TODO

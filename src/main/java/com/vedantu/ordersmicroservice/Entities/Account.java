@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,13 +24,20 @@ public class Account {
 
     private String username;
 
+    @Field("account_email")
     private String accountEmail;
+
+    @Field("account_phone")
     private String accountPhone;
     private String country;
 
     private List<Address> addresses;
     //private List<OrderInventory> cart;  // TODO
-    private Order currentOrders;
+
+    @Field("current_order")
+    private Order currentOrder;
+
+    @Field("order_history")
     private List<Order> OrderHistory;
 
 }

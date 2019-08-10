@@ -52,18 +52,6 @@ Note: To test use the urls and thier requestbodies which are in given as example
   Note: Not Mandotary to send inventoryId as it creates unique id if not provided. But for better testing purpose lets pass id.
   Usecase: Before creating order database show contain some inventory.
   ```
-
-- Show Inventory
-
-    `GET` http://localhost:8080/inventory/show _with inventoryId as **RequestParam**_
-    ```
-    For Example:
-    
-    http://localhost:8080/inventory/show?inventoryId="inv1"
-    
-    Usecase : To check the updated stock inventory after order creation. 
-    ```
-
 - Show All Inventory
   
     `GET` http://localhost:8080/inventory/showAll
@@ -157,6 +145,7 @@ Note: To test use the urls and thier requestbodies which are in given as example
 - Order Delievered
 - Delete Account
 - Update Account
+- Show Inventory by id/type
 - Remove Inventory
 
 ## Next Steps

@@ -61,14 +61,16 @@ public class OrderController {
 
             //Order Placed
             newOrder.setItems(availableItemsInOrder);
-            account.setCurrentOrder(newOrder);
+
+           // if(account.getCurrentOrders().)
+            account.getCurrentOrders().add(newOrder);
             accountWithNewOrder = accountService.updateAccount(account);
 
             //update stock
             inventoryService.updateInventory(availableItemsInOrder);
 
             //return only items which are placed (which are in stock and order created)
-            return new ResponseEntity<>(accountWithNewOrder.getCurrentOrder(), HttpStatus.OK);
+            return new ResponseEntity<>(accountWithNewOrder.getCurrentOrders(), HttpStatus.OK);
         } else {
             //if user is not found with id
             String msg = "User not found with this ID";
@@ -76,4 +78,57 @@ public class OrderController {
         }
     }
 
+    /**
+     *
+     * API to get all current orders with are not delievered yet
+     *
+     * @param accountId
+     * @return List<Order> list of all Orders
+     */
+    @GetMapping("/orderDetails")
+    private ResponseEntity<?> getCurrentOrderDetails(@PathVariable String accountId) {
+
+        List<Order> currentOrders = orderService.getcurrentOrder(accountId);
+
+        if(currentOrders.size() > 0) {
+            return new ResponseEntity<>(currentOrders, HttpStatus.OK);
+        } else {
+            //if user is not found with id
+            String msg = "User not found with this ID / No current Orders for this Account";
+            return new ResponseEntity<>(msg , HttpStatus.OK);
+        }
+    }
+
+    /**
+     * API to cancel order(one item in order)
+     *
+     * @param accountId
+     * @param itemId
+     * @return
+     */
+    @DeleteMapping("/cancelOrder")
+    private ResponseEntity<?> cancelOrder(@PathVariable String accountId, @RequestParam String itemId) {
+
+        //TODO : need to be implemeneted
+        //user can cancel any single item from his current orders
+        String msg = "Not Implemented";
+        return new ResponseEntity<>(msg , HttpStatus.BAD_REQUEST);
+
+    }
+
+    /**
+     * API to change status of delivered item in order and store orderhistory
+     *
+     * @param accountId
+     * @param itemId
+     * @return
+     */
+    @PutMapping("/orderDelievered/{itemId}")
+    private ResponseEntity<?> itemDelievered(@PathVariable String accountId, @PathVariable String itemId) {
+        //TODO : need to be implemeneted
+        //once a item is delivered, status changes of isDelievered to true
+        //moves from current orders to OrderHistory
+        String msg = "Not Implemented";
+        return new ResponseEntity<>(msg , HttpStatus.BAD_REQUEST);
+    }
 }

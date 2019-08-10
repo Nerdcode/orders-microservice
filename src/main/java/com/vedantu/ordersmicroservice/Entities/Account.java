@@ -36,7 +36,7 @@ public class Account {
     //private List<OrderInventory> cart;  // TODO
 
     @Field("current_order")
-    private Order currentOrder;
+    private List<Order> currentOrders;
 
     @Field("order_history")
     private List<Order> OrderHistory;

@@ -1,5 +1,6 @@
 package com.vedantu.ordersmicroservice.Services;
 
+import com.vedantu.ordersmicroservice.Entities.Account;
 import com.vedantu.ordersmicroservice.Entities.Order;
 import com.vedantu.ordersmicroservice.Entities.OrderInventory;
 import com.vedantu.ordersmicroservice.Entities.StockInventory;
@@ -8,6 +9,7 @@ import com.vedantu.ordersmicroservice.Repositories.StockInventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +22,9 @@ public class OrderService {
 
     @Autowired
     private InventoryRepository inventoryRepository;
+
+    @Autowired
+    private AccountService accountService;
 
     @Autowired
     private StockInventoryRepository stockInventoryRepo;
@@ -59,6 +64,16 @@ public class OrderService {
             return false;
         }
         return false;
+    }
+
+    public List<Order> getcurrentOrder(String accountId) {
+
+        Account account = accountService.getAccountById(accountId);
+        if(account != null) {
+            return account.getCurrentOrders();
+        } else {
+            return new ArrayList<>();
+        }
     }
 
 }

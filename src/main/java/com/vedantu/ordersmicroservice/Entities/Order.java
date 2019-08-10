@@ -30,8 +30,7 @@ public class Order {
     @Field("order_date")
     private LocalDateTime orderDate;
 
-    @Field("delivered_date")
-    private LocalDateTime deliveredDate;
+
 
     @Field("shipping_address")
     private Address shippingAddress;

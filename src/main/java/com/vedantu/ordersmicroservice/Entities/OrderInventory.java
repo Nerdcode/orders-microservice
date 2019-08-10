@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
@@ -24,4 +25,6 @@ public class OrderInventory extends Inventory {
     @Field("is_delivered")
     private boolean isDelivered; // true - orderhistory, false - current order
 
+    @Field("delivered_date")
+    private LocalDateTime deliveredDate;
 }

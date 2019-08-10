@@ -19,7 +19,9 @@ spring.data.mongodb.database=yourDatabaseName
 ## API
 This application provides API's like
 
-Note: Under Assumption that application is running in `localhost` at `port 8080`. 
+Note: Under Assumption that application is running in `localhost` at `port 8080`.
+
+Note: To test use the urls and thier requestbodies which are in given as examples.
 
 #### Implemented
 - Add Inventory
@@ -27,6 +29,7 @@ Note: Under Assumption that application is running in `localhost` at `port 8080`
   `POST` http://localhost:8080/inventory/add _with List of inventories in **RequestBody**_
   ```
   Below example **Request Body** shows parameters it can hold and list of JSON inventories
+  http://localhost:8080/inventory/add
   [
       {
           "inventoryId": "inv1",
@@ -74,7 +77,7 @@ Note: Under Assumption that application is running in `localhost` at `port 8080`
   `POST` http://localhost:8080/account/create _with Account Details as **RequestBody**_
   
   ```
-  Example: 
+  Example: http://localhost:8080/account/create
   {
     "accountId": "acc1",
     "username": "durga1234",

@@ -4,8 +4,22 @@ A Service (Java Web Application) which provides API's on Orders, Accounts and In
 
 ## Pre-Requisites
 
+- `mongodb` - Download and install if not already 
+- Download or clone this application
+- Change the configuration in `application.properties`
+```
+Like below:
+spring.data.mongodb.host=yourMongoDBServiceRunningMachine
+spring.data.mongodb.port=Port
+spring.data.mongodb.database=yourDatabaseName
+```
+- Run the application
+- use `Postman` or any similiar sort of API call environment to test the below API's
+
 ## API
 This application provides API's like
+
+Note: Under Assumption that application is running in `localhost` at `port 8080`. 
 
 #### Implemented
 - Add Inventory
@@ -57,7 +71,7 @@ This application provides API's like
 
 - Create Account
   
-  `POST` http://localhost:8080/account/create _with Account Details as **RequstBody**_
+  `POST` http://localhost:8080/account/create _with Account Details as **RequestBody**_
   
   ```
   Example: 
@@ -95,7 +109,7 @@ This application provides API's like
   Usecase: Gets the every detail of an account including currentOrders, OrderHistory and etc (if they are available).
   ```
 
-- Create Order
+- **Create Order**
 
   `POST` http://localhost:8080/account/{accountId}/placeOrder _with Order Details as **Request Body** and accountId as **PathVariable**_
   ```
@@ -126,11 +140,28 @@ This application provides API's like
   
 - Get Order Details
 
-  `GET` http://localhost:8080/account/{accountId}/orderDetails _wit accountId as **PathVariable**_
+  `GET` http://localhost:8080/account/{accountId}/orderDetails _with accountId as **PathVariable**_
   ```
   Example:
   http://localhost:8080/account/acc1/orderDetails
     
   Usecase: gets the current Order details for a user. 
   ```
+
+#### Created But Unimplemented API's
+
+- Cancel Order
+- Order Delievered
+- Delete Account
+- Update Account
+- Remove Inventory
+
+## Next Steps
+
+- Adding _**Spring Security**_
+- _**Indexing**_ for Model Fields
+- _**Implement**_ remaining API's
+- Implementing _**Cart**_
+- Better _**Exception Handling** 
+- Account(includes Orders) and Inventory can be made into seperate _**Miscroservices**_
 

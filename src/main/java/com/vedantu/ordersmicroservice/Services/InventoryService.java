@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -38,5 +39,29 @@ public class InventoryService {
             }
         }
 
+    }
+
+    /**
+     * Method to store all the newly added inventory
+     *
+     * @param stockInventory
+     * @return
+     */
+    public List<StockInventory> addInventory(List<StockInventory> stockInventory) {
+
+        //TODO : can check if the same type of inventory is already exists. if also just increase the instockQuantity
+        return stockInventory.parallelStream()
+                    .map(sInv -> stockInventoryRepository.save(sInv))
+                    .collect(Collectors.toList());
+    }
+
+    /**
+     * Method to get all stock inventory available
+     *
+     * @return
+     */
+    public List<StockInventory> getAllStockInventory() {
+
+        return stockInventoryRepository.findAll();
     }
 }

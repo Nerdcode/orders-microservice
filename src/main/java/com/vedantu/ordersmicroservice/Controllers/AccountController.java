@@ -66,7 +66,7 @@ public class AccountController {
         return new ResponseEntity<>(msg , HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     private ResponseEntity<?> updateAccount(@RequestBody Account newAccount) {
 
         //TODO : need to be implemeneted

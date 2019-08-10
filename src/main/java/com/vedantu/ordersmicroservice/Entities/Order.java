@@ -30,9 +30,6 @@ public class Order {
     @Field("order_date")
     private LocalDateTime orderDate;
 
-    @Field("is_delivered")
-    private boolean isDelivered; // true - orderhistory, false - current order
-
     @Field("delivered_date")
     private LocalDateTime deliveredDate;
 

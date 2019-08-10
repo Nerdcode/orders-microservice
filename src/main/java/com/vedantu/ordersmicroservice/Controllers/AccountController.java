@@ -26,48 +26,32 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @Autowired
-    private OrderService orderService;
+    /**
+     * API to create new Account
+     *
+     * @param newAccount
+     * @return account after creation
+     */
+    @PostMapping("/create")
+    private ResponseEntity<?> createAccount(@RequestBody Account newAccount) {
 
-    @Autowired
-    private InventoryService inventoryService;
+        Account savedAccount = accountService.createAccount(newAccount);
+        System.out.print(savedAccount);
+        return new ResponseEntity<>(savedAccount, HttpStatus.OK);
+    }
 
     /**
-     * API to create order for a user
+     * API to get Deatails
      *
-     * @param accountId accountId to identify the user
-     * TODO : accountID can be taken from currentUser after implementing concepts like Spring Security
-     * @param newOrder {@link Order} order created by User
-     * @return Order - containing All items which are available in stock (Note:can be all items or few items based on availability)
-     *          Unauthorized - if user is not found in db (TODO : this can be handled by spring security session check/authenicated user)
+     * @param accountId
+     * @return
      */
-    @PostMapping("{accountId}/placeOrder")
-    private ResponseEntity<?> createOrder(
-            @PathVariable String accountId,
-            @RequestBody Order newOrder) {
+    @GetMapping("/details/{accountId}")
+    private  ResponseEntity<?> getAccountDetails(@PathVariable String accountId) {
 
         Account account = accountService.getAccountById(accountId);
-        Account accountWithNewOrder = null;
         if(account != null) {
-            //Items in Stock
-            List<OrderInventory> availableItemsInOrder = orderService.getOrderItemsAvailableInStock(newOrder);
-
-            if(availableItemsInOrder.size() == 0) {
-                //if nothing is in stock
-                String msg = "All Items in your stock are not available, Out of Stock";
-                return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST); // In a actual scenario this is not a BAD_REQUEST
-            }
-            
-            //Order Placed
-            newOrder.setItems(availableItemsInOrder);
-            account.setCurrentOrder(newOrder);
-            accountWithNewOrder = accountService.updateAccount(account);
-
-            //update stock
-            inventoryService.updateInventory(availableItemsInOrder);
-
-            //return only items which are placed (which are in stock and order created)
-            return new ResponseEntity<>(accountWithNewOrder.getCurrentOrder(), HttpStatus.OK);
+            return new ResponseEntity<>(account, HttpStatus.OK);
         } else {
             //if user is not found with id
             String msg = "User not found with this ID";
@@ -75,11 +59,18 @@ public class AccountController {
         }
     }
 
-    @PostMapping("/createAccount")
-    private ResponseEntity<?> createAccount(@RequestBody Account newAccount) {
+    @DeleteMapping("/delete/{accountId}")
+    private  ResponseEntity<?> deleteAccount(@PathVariable String accountId)  {
+        //TODO : need to be implemeneted
+        String msg = "Not Implemented";
+        return new ResponseEntity<>(msg , HttpStatus.BAD_REQUEST);
+    }
 
-        Account savedAccount = accountService.createAccount(newAccount);
-        System.out.print(savedAccount);
-        return new ResponseEntity<>(savedAccount, HttpStatus.OK);
+    @PostMapping("/update")
+    private ResponseEntity<?> updateAccount(@RequestBody Account newAccount) {
+
+        //TODO : need to be implemeneted
+        String msg = "Not Implemented";
+        return new ResponseEntity<>(msg , HttpStatus.BAD_REQUEST);
     }
 }

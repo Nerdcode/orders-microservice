@@ -16,6 +16,32 @@ spring.data.mongodb.database=yourDatabaseName
 - Run the application
 - use `Postman` or any similiar sort of API call environment to test the below API's
 
+## Assumptions
+
+- Account contains CurrentOrders and OrderHistory(currentOrders after delivery turns to OrderHistory)
+- Each Order contains Item(s) (either different items or same item with quantity more than 1)
+- Inventory has two phases
+  - Inventory which are in stock (contains mrp, instockQuantity, soldQuntity n etc)
+  - Inventory which are ordered (orderdate, address to be delivered at, **items** and thier quantity and etc)
+
+### Entities/ Models and their Relations
+
+- `Account` **HAS-A** `Order`(currentOrders, OrderHistory)
+  - `Order` **HAS-A** `OrderInventory`(Items)
+- `OrderInventory` **IS-A** `Inventory`
+- `StockInventory` **IS-A** `Inventory`
+
+```
+Quoted : Entities/ Models
+Bold : Relations
+```
+
+### Collections
+- Account
+- StockInventory
+
+```Note: Order is an embedded document in Account ( Order is specific to an Account)```
+
 ## API
 This application provides API's like
 
@@ -151,6 +177,8 @@ Note: To test use the urls and thier requestbodies which are in given as example
 ## Next Steps
 
 - Adding _**Spring Security**_
+- Writing _**test cases**_
+- Desiging in more Object-Oriented Way
 - _**Indexing**_ for Model Fields
 - _**Implement**_ remaining API's
 - Implementing _**Cart**_
